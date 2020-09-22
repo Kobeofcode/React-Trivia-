@@ -1,0 +1,11 @@
+.jumbotron{
+    background-color: lightseagreen !important;
+}
+
+#correct{
+    display: none;
+}
+
+#incorrect{
+    display: none;
+}

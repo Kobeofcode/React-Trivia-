@@ -20,8 +20,8 @@ const App = () =>{
             document.removeEventListener("mainBtn",getData)
         }
     },[state]);*/
-    
-    const [count,setCount]= useState(0);
+    const [correct,setCorrect]=useState(0);
+    const [count,setCount]= useState(1);
     const [state,setState]= useState([]);
     useEffect(()=>{
         axios.get("https://opentdb.com/api.php?amount=1&type=multiple")
@@ -40,7 +40,8 @@ const App = () =>{
         
         return()=>{setNext([])}
     },[]);
-*/   
+*/  let counter = count;
+    
     let question = state.map(i=>i.question);
     let totalAnsw = state.map(i=>i.incorrect_answers);
     let correctAnswer = state.map(i=>i.correct_answer);
@@ -54,13 +55,13 @@ const App = () =>{
    let q1 = totalAnsw.map(e=>e[0]);
    let q2 = totalAnsw.map(e=>e[1]);
    let q3 = totalAnsw.map(e=>e[2]);
-   let q4 = totalAnsw.map(e=>e[3]);
-
+   let q4 = totalAnsw.map(e=>e[3]); 
+    console.log(correct)
    let getAnswer = (e)=>{
-       console.log(e)
+       
        if(e[0]===correctAnswer[0] && document.getElementById("incorrect").style.display!=="block" ){
             document.getElementById("correct").style.display="block"
-            
+            setCorrect(correct => correct +1)
        }else if (e[0]!==correctAnswer[0] && document.getElementById("correct").style.display!=="block"){
             document.getElementById("incorrect").style.display="block"
             
@@ -72,7 +73,8 @@ const App = () =>{
        <div> 
   
         <div className="jumbotron jumbotron-fluid">
-            <div className="container">
+            <div className="container"> 
+                <nav className="navbar nav float-right"><ul className="navbar-brand">{correct+"/"+counter}</ul></nav>
                 <div className="col-10 offset-1">
                     <h3>API Trivia</h3><br/>
                             <ul><h4>{question}</h4></ul>    
